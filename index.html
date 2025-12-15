@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirvana Resort | Black Edition</title>
+    
+    <!-- Fuentes de Alta Gama -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Palette Black Edition */
+            --bg-body: #050505;
+            --bg-card: #0F0F0F;
+            --text-main: #Eaeaea;
+            --text-muted: #d4d4d4; /* Color de texto más claro y premium */
+            
+            /* Gold Gradient Realista */
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --gold-flat: #D4AF37;
+            
+            /* Typography Scale - AUMENTADA & REFINADA */
+            --font-display: 'Italiana', serif; /* Títulos Principales */
+            --font-serif: 'Playfair Display', serif; /* Subtítulos */
+            --font-body: 'Cormorant Garamond', serif; /* Cuerpo de texto elegante */
+            --font-sans: 'Manrope', sans-serif; /* Datos técnicos / UI */
+        }
+
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-body); /* Cambio base a Serif */
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* TYPOGRAPHY - IMPACTO TOTAL */
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.03em; }
+        
+        /* Títulos mucho más grandes */
+        h1 { 
+            font-size: clamp(4.5rem, 12vw, 9rem); 
+            line-height: 0.9; 
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 { 
+            font-size: clamp(3.5rem, 7vw, 6rem); 
+            color: var(--text-main); 
+            margin-bottom: 2.5rem; 
+            line-height: 1;
+        }
+        
+        h3 { font-size: 2rem; color: var(--gold-flat); margin-bottom: 1rem; }
+        
+        /* PÁRRAFOS PREMIUM (CAMBIO PRINCIPAL) */
+        p { 
+            font-family: var(--font-body); /* Cormorant Garamond */
+            color: var(--text-muted); 
+            font-size: 1.5rem; /* Tamaño aumentado para lectura de lujo */
+            margin-bottom: 2.5rem; 
+            font-weight: 300; 
+            max-width: 700px; 
+            line-height: 1.6; /* Interlineado generoso */
+            letter-spacing: 0.02em; /* Aire entre letras */
+        }
+        
+        /* Énfasis en párrafos */
+        p strong {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 6px; 
+            color: var(--gold-flat);
+            display: block;
+            margin-bottom: 1.5rem;
+            opacity: 1;
+            font-weight: 500;
+        }
+
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* LAYOUT UTILS */
+        section {
+            padding: 10rem 8%; 
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .container {
+            max-width: 1600px; 
+            margin: 0 auto;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0;
+            border: none;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.5; 
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.2), #050505);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-logo {
+            width: 280px; 
+            margin-bottom: 3rem;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.9));
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display); 
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        /* --- SPLIT SECTIONS (ZIG ZAG) --- */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem; 
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .content-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 70vh; 
+            overflow: hidden;
+            border-radius: 0; 
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        /* ESTADÍSTICA INTEGRADA (Clean & Centered) */
+        .stat-minimal {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(199, 166, 75, 0.3); 
+            display: flex;
+            align-items: center;
+            justify-content: center; /* CENTRADO AQUÍ */
+            gap: 2rem;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 7rem; 
+            line-height: 0.8;
+            color: var(--gold-flat);
+        }
+
+        .stat-desc {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            max-width: 200px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        /* --- METRICS GRID --- */
+        .metrics-section {
+            background-color: var(--bg-card);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .metric-item {
+            padding: 5rem 2rem;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.3s;
+        }
+
+        .metric-item:hover { background: rgba(199, 166, 75, 0.05); }
+
+        .m-val {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 4rem; 
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .m-label {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold-flat);
+        }
+
+        /* --- INVESTMENT (Monumental) --- */
+        .investment-section {
+            text-align: center;
+            background: radial-gradient(circle at center, #1f120a 0%, #050505 80%);
+        }
+
+        .big-inv-number {
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 12vw, 11rem); 
+            background: linear-gradient(to bottom, #fff 30%, #8a6e2f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 2rem 0;
+            line-height: 0.9;
+            filter: drop-shadow(0 0 30px rgba(199, 166, 75, 0.1));
+        }
+
+        .inv-badge {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold-flat);
+            color: var(--gold-flat);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 5rem;
+            background: rgba(0,0,0,0.5);
+            font-family: var(--font-sans);
+        }
+
+        .cap-table {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0; 
+            margin-top: 4rem;
+            border-top: 1px solid rgba(199, 166, 75, 0.3);
+            border-bottom: 1px solid rgba(199, 166, 75, 0.3);
+        }
+
+        .cap-item {
+            padding: 3rem 1rem;
+            border-right: 1px solid rgba(199, 166, 75, 0.1);
+        }
+        .cap-item:last-child { border-right: none; }
+
+        .cap-item h4 { font-size: 3.5rem; margin-bottom: 0.5rem; font-family: var(--font-display); color: var(--text-main); }
+        .cap-item span { font-family: var(--font-sans); font-size: 0.9rem; text-transform: uppercase; color: var(--gold-flat); letter-spacing: 2px; }
+
+        /* --- TOKENOMICS (Elegant) --- */
+        .token-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8rem;
+        }
+
+        .token-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-family: var(--font-display);
+            font-size: 1.5rem; 
+        }
+        .token-list span:first-child { color: var(--text-muted); font-family: var(--font-sans); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; }
+        .token-list span:last-child { color: var(--gold-flat); }
+
+        /* --- TEAM SECTION (NUEVA) --- */
+        .team-section {
+            background-color: var(--bg-card);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            transition: transform 0.4s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1/1; 
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%; 
+        }
+
+        .team-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: filter 0.4s ease;
+        }
+
+        .team-card:hover img {
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        .team-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-flat);
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .linkedin-btn {
+            color: #fff;
+            opacity: 0.5;
+            transition: 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .linkedin-btn:hover {
+            color: #0077b5;
+            opacity: 1;
+        }
+
+        /* --- PARTNERS MARQUEE --- */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 6rem 0;
+            background: #000;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .marquee::before, .marquee::after {
+            content: "";
+            position: absolute;
+            top: 0; width: 200px; height: 100%;
+            z-index: 2;
+        }
+        .marquee::before { left: 0; background: linear-gradient(to right, #000, transparent); }
+        .marquee::after { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: scroll 40s linear infinite;
+        }
+
+        .partner-box {
+            margin: 0 5rem;
+            display: flex;
+            align-items: center;
+            color: #444;
+            font-size: 2rem;
+            font-family: var(--font-display);
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .partner-box:hover { opacity: 1; color: var(--gold-flat); }
+        .partner-box i { font-size: 3rem; margin-right: 1.5rem; }
+
+        /* --- FOOTER & WHATSAPP --- */
+        footer {
+            text-align: center;
+            padding: 8rem 0;
+            background: #050505;
+            position: relative;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            margin-top: 4rem;
+            padding: 1.5rem 4rem;
+            background: transparent;
+            border: 1px solid var(--gold-flat);
+            color: var(--gold-flat);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 4px;
+            transition: all 0.4s;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+        }
+        .cta-btn:hover {
+            background: var(--gold-flat);
+            color: #000;
+            box-shadow: 0 0 40px rgba(199, 166, 75, 0.3);
+        }
+        
+        /* BOTÓN WHATSAPP PREMIUM (Black Edition) */
+        .whatsapp-float {
+            position: fixed;
+            width: 70px; /* Un poco más grande para presencia */
+            height: 70px;
+            bottom: 40px;
+            right: 40px;
+            
+            /* Fondo Dorado Degradado de Lujo */
+            background: var(--gold-gradient);
+            
+            color: #050505; /* Icono oscuro para contraste premium */
+            border-radius: 50%;
+            text-align: center;
+            font-size: 35px;
+            
+            /* Sombra y Glow Dorado */
+            box-shadow: 0 10px 30px rgba(199, 166, 75, 0.3), inset 0 0 0 1px rgba(255,255,255,0.4);
+            
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Para el efecto de brillo */
+        }
+
+        /* Efecto de Brillo Pasando (Shine) */
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg);
+            animation: shine-alt 6s infinite; /* Brillo sutil cada 6 segundos */
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(199, 166, 75, 0.5);
+            color: #000;
+        }
+
+        /* ANIMATION */
+        @keyframes float { 0% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 10px); } 100% { transform: translate(-50%, 0); } }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        @keyframes shine-alt {
+            0% { left: -100%; }
+            20% { left: 200%; } /* Pasa rápido */
+            100% { left: 200%; } /* Espera */
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            h1 { font-size: 5rem; }
+            h2 { font-size: 3.5rem; }
+            .split-section { grid-template-columns: 1fr; gap: 4rem; }
+            .video-wrapper { height: 500px; order: -1; }
+            .metrics-grid, .cap-table { grid-template-columns: 1fr 1fr; border-left: none; }
+            .metric-item { border-left: none; }
+            .token-container { flex-direction: column; gap: 4rem; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            section { padding: 6rem 5%; }
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 3.5rem; }
+            .team-grid { grid-template-columns: 1fr; }
+            .big-inv-number { font-size: 5rem; }
+            /* Ajuste móvil para botón WhatsApp */
+            .whatsapp-float { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="https://nirvanaresort.space/assets/img/video2.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <img src="https://nirvanaresort.space/assets/img/logo_completo.png" alt="Nirvana" class="hero-logo">
+            <span class="eyebrow" style="color: #fff; opacity: 0.8;">Investment Opportunity</span>
+            <p class="hero-tagline">"Tokenizando el Paraíso Andino"</p>
+            <span style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); padding: 12px 30px; margin-top: 1rem; display: inline-block;">Regulación D 506(c)</span>
+        </div>
+        <div class="scroll-down"><i class="fas fa-arrow-down" style="color:white; opacity:0.5; font-size: 1.5rem;"></i></div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section>
+        <div class="container split-section">
+            <div class="content-col">
+                <span class="eyebrow">Análisis de Mercado</span>
+                <h2>La Brecha del <br><span class="gold-text">Ultra-Lujo</span></h2>
+                <p>
+                    Colombia es un destino mundial en tendencia, pero su infraestructura actual no satisface al viajero de alto patrimonio ("High Net Worth").
+                </p>
+                <p>
+                    <strong>El Desafío:</strong> Las barreras burocráticas y los altos montos de entrada han hecho que este mercado sea inaccesible para el inversor global.
+                </p>
+                
+                <!-- ESTADÍSTICA INTEGRADA -->
+                <div class="stat-minimal">
+                    <span class="stat-number">90%</span>
+                    <span class="stat-desc">De la demanda actual proviene de Turismo Extranjero.</span>
+                </div>
+            </div>
+            
+            <div class="video-wrapper">
+                <video autoplay muted loop playsinline>
+                    <source src="https://nirvanaresort.space/assets/img/video1.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section style="background-color: var(--bg-card);">
+        <div class="container split-section">
+            <!-- Video primero en HTML pero manejado con CSS grid -->
+            <div class="video-wrapper">
+                <video autoplay muted loop playsinline>
+                    <source src="https://nirvanaresort.space/assets/img/video4.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="content-col">
+                <span class="eyebrow">La Solución</span>
+                <h2>Santuario <span class="gold-text">Tokenizado</span></h2>
+                <p>
+                    Una fusión maestra de arquitectura sostenible y tecnología financiera. <strong>20 Bungalows Privados</strong> suspendidos en la montaña, diseñados con una estética biofílica que respeta el entorno.
+                </p>
+                <p>
+                    Impulsado por <strong>Blockchain Core</strong> para garantizar propiedad fraccionada real, liquidez inmediata y gobernanza descentralizada a través de Smart Contracts.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINANCIAL METRICS -->
+    <section class="metrics-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 6rem;">
+                <span class="eyebrow">Unit Economics</span>
+                <h2>Proyecciones Financieras</h2>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <span class="m-val">$400</span>
+                    <span class="m-label">ADR Promedio</span>
+                </div>
+                <div class="metric-item">
+                    <span class="m-val">65%</span>
+                    <span class="m-label">Ocupación Año 1</span>
+                </div>
+                <div class="metric-item">
+                    <span class="m-val">$4.2M</span>
+                    <span class="m-label">Revenue Total</span>
+                </div>
+                <div class="metric-item">
+                    <span class="m-val" style="color: var(--gold-flat);">47%</span>
+                    <span class="m-label" style="color: #fff;">Margen EBITDA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INVESTMENT -->
+    <section class="investment-section">
+        <div class="container">
+            <span class="eyebrow">Estructura de Capital</span>
+            <div class="big-inv-number">$2,000,000</div>
+            <div class="inv-badge">Regulación D 506(c) Compliant</div>
+            
+            <div class="cap-table">
+                <div class="cap-item">
+                    <h4>60%</h4>
+                    <span>Venta Pública</span>
+                </div>
+                <div class="cap-item">
+                    <h4>20%</h4>
+                    <span>Fundadores</span>
+                </div>
+                <div class="cap-item">
+                    <h4>12%</h4>
+                    <span>Reserva</span>
+                </div>
+                <div class="cap-item">
+                    <h4>8%</h4>
+                    <span>Growth</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOKENOMICS -->
+    <section>
+        <div class="container token-container">
+            <div style="flex: 1;">
+                <span class="eyebrow">El Activo Digital</span>
+                <h2>Detalles del <span class="gold-text">Token</span></h2>
+                <ul class="token-list">
+                    <li><span>Nombre</span> <span>Nirvana Resort Token</span></li>
+                    <li><span>Ticker</span> <span>$NRV</span></li>
+                    <li><span>Red</span> <span>BNB Chain (BEP-20)</span></li>
+                    <li><span>Tipo</span> <span>Security Token</span></li>
+                    <li><span>Supply Total</span> <span>2,000,000 NRV</span></li>
+                    <li><span>Precio Inicial</span> <span>1 NRV = 1 USDT</span></li>
+                </ul>
+            </div>
+            
+            <div style="flex: 1; display: flex; justify-content: center;">
+                <!-- Donut Chart Minimalista CSS -->
+                <div style="width: 450px; height: 450px; border-radius: 50%; background: conic-gradient(var(--gold-flat) 0% 60%, #333 60% 80%, #222 80% 92%, #111 92% 100%); position: relative;">
+                    <div style="position: absolute; inset: 2px; background: var(--bg-body); border-radius: 50%;"></div>
+                    <div style="position: absolute; inset: 60px; background: var(--bg-body); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <span style="font-family: var(--font-display); font-size: 4rem; color: var(--gold-flat);">$NRV</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION (NUEVA) -->
+    <section class="team-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="eyebrow">Liderazgo</span>
+                <h2>Arquitectos de <span class="gold-text">Nirvana</span></h2>
+            </div>
+            
+            <div class="team-grid">
+                <!-- Rick Tobon -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://media.licdn.com/dms/image/v2/C5603AQHOMO1PFLjrcQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1620281675055?e=1767225600&v=beta&t=zoXmdGoCsCSCWU2nsSD4Kz0YAOZ0hdljoovoxMVas3M" alt="Rick Tobon">
+                    </div>
+                    <h3 class="team-name">Rick Tobon</h3>
+                    <span class="team-role">CEO Founder</span>
+                    <a href="https://www.linkedin.com/in/rick-tobon-569b9412/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <!-- Cesar Varon -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2574&auto=format&fit=crop" alt="Cesar Varon">
+                    </div>
+                    <h3 class="team-name">Cesar Varon</h3>
+                    <span class="team-role">COO Founder</span>
+                    <a href="#" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <!-- Lina Escarraga -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://media.licdn.com/dms/image/v2/D4E03AQGl0ZViDRRcqg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1722028620338?e=1767225600&v=beta&t=9vPinDspaVH9mz7TWRN-e3JcoCjGOAFwTn64J8Srmro" alt="Lina Escarraga">
+                    </div>
+                    <h3 class="team-name">Lina Escarraga</h3>
+                    <span class="team-role">CMO</span>
+                    <a href="https://www.linkedin.com/in/lina-escarraga/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <!-- Jose Juarez -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2670&auto=format&fit=crop" alt="Jose Juarez">
+                    </div>
+                    <h3 class="team-name">Jose Juarez</h3>
+                    <span class="team-role">CTO</span>
+                    <a href="#" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <!-- Camilo Romero -->
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="https://media.licdn.com/dms/image/v2/D4E03AQF9eTSy1tM3-Q/profile-displayphoto-crop_800_800/B4EZfXi62rGcAI-/0/1751667949450?e=1767225600&v=beta&t=Nm98DjTDz3UgcjHqMYVKvc36Zt2W5P7MEAOB3EroRUE" alt="Camilo Romero">
+                    </div>
+                    <h3 class="team-name">Camilo Romero</h3>
+                    <span class="team-role">CGO</span>
+                    <a href="https://www.linkedin.com/in/camilo-romero-molano-6037a590/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="marquee">
+        <div class="marquee-content">
+            <!-- Set 1 -->
+            <div class="partner-box"><i class="fab fa-fort-awesome"></i> Disney</div>
+            <div class="partner-box"><i class="fas fa-plane"></i> Expedia</div>
+            <div class="partner-box"><i class="fas fa-globe"></i> Amadeus</div>
+            <div class="partner-box"><i class="fas fa-ticket-alt"></i> Despegar</div>
+            <div class="partner-box"><i class="fas fa-landmark"></i> Fontur</div>
+            <div class="partner-box"><i class="fas fa-certificate"></i> IATA</div>
+            <!-- Set 2 (Clone) -->
+            <div class="partner-box"><i class="fab fa-fort-awesome"></i> Disney</div>
+            <div class="partner-box"><i class="fas fa-plane"></i> Expedia</div>
+            <div class="partner-box"><i class="fas fa-globe"></i> Amadeus</div>
+            <div class="partner-box"><i class="fas fa-ticket-alt"></i> Despegar</div>
+            <div class="partner-box"><i class="fas fa-landmark"></i> Fontur</div>
+            <div class="partner-box"><i class="fas fa-certificate"></i> IATA</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="https://nirvanaresort.space/assets/img/logo_completo.png" alt="Nirvana Logo" style="width: 200px; opacity: 1; margin-bottom: 3rem;">
+        <h2 style="font-size: 3.5rem; margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">"Donde la tranquilidad es el verdadero lujo."</h2>
+        <a href="#" class="cta-btn">Solicitar Acceso a Inversión</a>
+        <div style="margin-top: 6rem; font-size: 0.9rem; color: #555;">
+            <p style="margin-top: 20px;">&copy; 2025 Nirvana Resort. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- BOTON WHATSAPP PREMIUM -->
+    <a href="https://wa.link/i0t455" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
