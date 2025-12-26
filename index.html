@@ -109,6 +109,35 @@
             margin: 0 auto;
         }
 
+        /* --- LANGUAGE SWITCHER --- */
+        .lang-switch {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 5px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            border-color: var(--gold-flat);
+            color: var(--gold-flat);
+            background: rgba(0,0,0,0.5);
+        }
+
         /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
@@ -470,45 +499,46 @@
             box-shadow: 0 0 40px rgba(199, 166, 75, 0.3);
         }
         
-        /* BOTÓN WHATSAPP PREMIUM (Black Edition) */
-        .whatsapp-float {
+        /* BOTONES FLOTANTES (WhatsApp & LinkedIn) */
+        .floating-buttons {
             position: fixed;
-            width: 70px; /* Un poco más grande para presencia */
-            height: 70px;
             bottom: 40px;
             right: 40px;
-            
-            /* Fondo Dorado Degradado de Lujo */
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .float-btn {
+            width: 60px; 
+            height: 60px;
             background: var(--gold-gradient);
-            
-            color: #050505; /* Icono oscuro para contraste premium */
+            color: #050505; 
             border-radius: 50%;
             text-align: center;
-            font-size: 35px;
-            
-            /* Sombra y Glow Dorado */
+            font-size: 30px;
             box-shadow: 0 10px 30px rgba(199, 166, 75, 0.3), inset 0 0 0 1px rgba(255,255,255,0.4);
-            
-            z-index: 100;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Para el efecto de brillo */
+            overflow: hidden; 
+            text-decoration: none;
         }
 
-        /* Efecto de Brillo Pasando (Shine) */
-        .whatsapp-float::before {
+        /* Efecto de Brillo */
+        .float-btn::before {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
             background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
             transform: skewX(-25deg);
-            animation: shine-alt 6s infinite; /* Brillo sutil cada 6 segundos */
+            animation: shine-alt 6s infinite; 
         }
 
-        .whatsapp-float:hover {
+        .float-btn:hover {
             transform: scale(1.1) translateY(-5px);
             box-shadow: 0 20px 40px rgba(199, 166, 75, 0.5);
             color: #000;
@@ -541,12 +571,19 @@
             h1 { font-size: 3.5rem; }
             .team-grid { grid-template-columns: 1fr; }
             .big-inv-number { font-size: 5rem; }
-            /* Ajuste móvil para botón WhatsApp */
-            .whatsapp-float { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 30px; }
+            /* Ajuste móvil para botones flotantes */
+            .floating-buttons { bottom: 20px; right: 20px; }
+            .float-btn { width: 50px; height: 50px; font-size: 25px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- LANGUAGE SWITCHER -->
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLanguage('es')">ES</button>
+        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+    </div>
 
     <!-- HERO -->
     <section class="hero">
@@ -555,8 +592,8 @@
         </video>
         <div class="hero-content">
             <img src="https://nirvanaresort.space/assets/img/logo_completo.png" alt="Nirvana" class="hero-logo">
-            <span class="eyebrow" style="color: #fff; opacity: 0.8;">Investment Opportunity</span>
-            <p class="hero-tagline">"Tokenizando el Paraíso Andino"</p>
+            <span class="eyebrow" style="color: #fff; opacity: 0.8;" data-key="eyebrow_hero">Investment Opportunity</span>
+            <p class="hero-tagline" data-key="hero_tagline">"Tokenizando el Paraíso Andino"</p>
             <span style="font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); padding: 12px 30px; margin-top: 1rem; display: inline-block;">Regulación D 506(c)</span>
         </div>
         <div class="scroll-down"><i class="fas fa-arrow-down" style="color:white; opacity:0.5; font-size: 1.5rem;"></i></div>
@@ -566,19 +603,19 @@
     <section>
         <div class="container split-section">
             <div class="content-col">
-                <span class="eyebrow">Análisis de Mercado</span>
-                <h2>La Brecha del <br><span class="gold-text">Ultra-Lujo</span></h2>
-                <p>
+                <span class="eyebrow" data-key="market_analysis">Análisis de Mercado</span>
+                <h2><span data-key="gap_title_1">La Brecha del</span> <br><span class="gold-text" data-key="gap_title_2">Ultra-Lujo</span></h2>
+                <p data-key="problem_desc_1">
                     Colombia es un destino mundial en tendencia, pero su infraestructura actual no satisface al viajero de alto patrimonio ("High Net Worth").
                 </p>
-                <p>
+                <p data-key="problem_desc_2">
                     <strong>El Desafío:</strong> Las barreras burocráticas y los altos montos de entrada han hecho que este mercado sea inaccesible para el inversor global.
                 </p>
                 
                 <!-- ESTADÍSTICA INTEGRADA -->
                 <div class="stat-minimal">
                     <span class="stat-number">90%</span>
-                    <span class="stat-desc">De la demanda actual proviene de Turismo Extranjero.</span>
+                    <span class="stat-desc" data-key="stat_desc">De la demanda actual proviene de Turismo Extranjero.</span>
                 </div>
             </div>
             
@@ -601,12 +638,12 @@
             </div>
 
             <div class="content-col">
-                <span class="eyebrow">La Solución</span>
-                <h2>Santuario <span class="gold-text">Tokenizado</span></h2>
-                <p>
+                <span class="eyebrow" data-key="solution_eyebrow">La Solución</span>
+                <h2><span data-key="solution_title_1">Santuario</span> <span class="gold-text" data-key="solution_title_2">Tokenizado</span></h2>
+                <p data-key="solution_desc_1">
                     Una fusión maestra de arquitectura sostenible y tecnología financiera. <strong>20 Bungalows Privados</strong> suspendidos en la montaña, diseñados con una estética biofílica que respeta el entorno.
                 </p>
-                <p>
+                <p data-key="solution_desc_2">
                     Impulsado por <strong>Blockchain Core</strong> para garantizar propiedad fraccionada real, liquidez inmediata y gobernanza descentralizada a través de Smart Contracts.
                 </p>
             </div>
@@ -618,24 +655,24 @@
         <div class="container">
             <div style="text-align: center; margin-bottom: 6rem;">
                 <span class="eyebrow">Unit Economics</span>
-                <h2>Proyecciones Financieras</h2>
+                <h2 data-key="metrics_title">Proyecciones Financieras</h2>
             </div>
             <div class="metrics-grid">
                 <div class="metric-item">
                     <span class="m-val">$400</span>
-                    <span class="m-label">ADR Promedio</span>
+                    <span class="m-label" data-key="metric_adr">ADR Promedio</span>
                 </div>
                 <div class="metric-item">
                     <span class="m-val">65%</span>
-                    <span class="m-label">Ocupación Año 1</span>
+                    <span class="m-label" data-key="metric_occ">Ocupación Año 1</span>
                 </div>
                 <div class="metric-item">
                     <span class="m-val">$4.2M</span>
-                    <span class="m-label">Revenue Total</span>
+                    <span class="m-label" data-key="metric_rev">Revenue Total</span>
                 </div>
                 <div class="metric-item">
                     <span class="m-val" style="color: var(--gold-flat);">47%</span>
-                    <span class="m-label" style="color: #fff;">Margen EBITDA</span>
+                    <span class="m-label" style="color: #fff;" data-key="metric_ebitda">Margen EBITDA</span>
                 </div>
             </div>
         </div>
@@ -644,26 +681,26 @@
     <!-- INVESTMENT -->
     <section class="investment-section">
         <div class="container">
-            <span class="eyebrow">Estructura de Capital</span>
+            <span class="eyebrow" data-key="investment_eyebrow">Estructura de Capital</span>
             <div class="big-inv-number">$3,500,000</div>
             <div class="inv-badge">Regulación D 506(c) Compliant</div>
             
             <div class="cap-table">
                 <div class="cap-item">
                     <h4>60%</h4>
-                    <span>Venta Pública</span>
+                    <span data-key="cap_public">Venta Pública</span>
                 </div>
                 <div class="cap-item">
                     <h4>20%</h4>
-                    <span>Fundadores</span>
+                    <span data-key="cap_founders">Fundadores</span>
                 </div>
                 <div class="cap-item">
                     <h4>12%</h4>
-                    <span>Reserva</span>
+                    <span data-key="cap_reserve">Reserva</span>
                 </div>
                 <div class="cap-item">
                     <h4>8%</h4>
-                    <span>Growth</span>
+                    <span data-key="cap_growth">Growth</span>
                 </div>
             </div>
         </div>
@@ -673,15 +710,15 @@
     <section>
         <div class="container token-container">
             <div style="flex: 1;">
-                <span class="eyebrow">El Activo Digital</span>
-                <h2>Detalles del <span class="gold-text">Token</span></h2>
+                <span class="eyebrow" data-key="token_eyebrow">El Activo Digital</span>
+                <h2><span data-key="token_title_1">Detalles del</span> <span class="gold-text" data-key="token_title_2">Token</span></h2>
                 <ul class="token-list">
-                    <li><span>Nombre</span> <span>Nirvana Resort Token</span></li>
+                    <li><span data-key="token_name_label">Nombre</span> <span>Nirvana Resort Token</span></li>
                     <li><span>Ticker</span> <span>$NRV</span></li>
-                    <li><span>Red</span> <span>BNB Chain (BEP-20)</span></li>
-                    <li><span>Tipo</span> <span>Security Token</span></li>
+                    <li><span data-key="token_net_label">Red</span> <span>BNB Chain (BEP-20)</span></li>
+                    <li><span data-key="token_type_label">Tipo</span> <span>Security Token</span></li>
                     <li><span>Supply Total</span> <span>2,000,000 NRV</span></li>
-                    <li><span>Precio Inicial</span> <span>1 NRV = 1 USDT</span></li>
+                    <li><span data-key="token_price_label">Precio Inicial</span> <span>1 NRV = 1 USDT</span></li>
                 </ul>
             </div>
             
@@ -697,12 +734,12 @@
         </div>
     </section>
 
-    <!-- TEAM SECTION (NUEVA) -->
+    <!-- TEAM SECTION -->
     <section class="team-section">
         <div class="container">
             <div style="text-align: center; margin-bottom: 5rem;">
-                <span class="eyebrow">Liderazgo</span>
-                <h2>Arquitectos de <span class="gold-text">Nirvana</span></h2>
+                <span class="eyebrow" data-key="team_eyebrow">Liderazgo</span>
+                <h2><span data-key="team_title_1">Arquitectos de</span> <span class="gold-text">Nirvana</span></h2>
             </div>
             
             <div class="team-grid">
@@ -715,14 +752,14 @@
                     <span class="team-role">CEO Founder</span>
                     <a href="https://www.linkedin.com/in/rick-tobon-569b9412/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <!-- Cesar Varon -->
+                <!-- Cesar Varon (ACTUALIZADO) -->
                 <div class="team-card">
                     <div class="team-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2574&auto=format&fit=crop" alt="Cesar Varon">
+                        <img src="https://media.licdn.com/dms/image/v2/D4E03AQFLd25LdNDGEw/profile-displayphoto-crop_800_800/B4EZsz5Q0THUAI-/0/1766102208812?e=1768435200&v=beta&t=DwnjPFNXSb8sMOPupZTV6SPlzs3NfOLhOlJIi6j1Iao" alt="Cesar Varon">
                     </div>
                     <h3 class="team-name">Cesar Varon</h3>
                     <span class="team-role">COO Founder</span>
-                    <a href="#" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/c%C3%A9sar-var%C3%B3n/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <!-- Lina Escarraga -->
                 <div class="team-card">
@@ -733,14 +770,14 @@
                     <span class="team-role">CMO</span>
                     <a href="https://www.linkedin.com/in/lina-escarraga/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <!-- Jose Juarez -->
+                <!-- Jose Juarez (ACTUALIZADO) -->
                 <div class="team-card">
                     <div class="team-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2670&auto=format&fit=crop" alt="Jose Juarez">
+                        <img src="https://media.licdn.com/dms/image/v2/D4E03AQGlpwwSJZ0-dQ/profile-displayphoto-shrink_800_800/B4EZtNgHCmGcAg-/0/1766531822513?e=1768435200&v=beta&t=QnOrGBwdBYMRuGM26QGJjHocuTMCbvbHqhM3pkt-k84" alt="José Juárez">
                     </div>
-                    <h3 class="team-name">Jose Juarez</h3>
+                    <h3 class="team-name">José Juárez</h3>
                     <span class="team-role">CTO</span>
-                    <a href="#" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/jos%C3%A9-manuel-juarez-lopez-596a59a4/" target="_blank" class="linkedin-btn"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <!-- Camilo Romero -->
                 <div class="team-card">
@@ -778,17 +815,119 @@
     <!-- FOOTER -->
     <footer>
         <img src="https://nirvanaresort.space/assets/img/logo_completo.png" alt="Nirvana Logo" style="width: 200px; opacity: 1; margin-bottom: 3rem;">
-        <h2 style="font-size: 3.5rem; margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">"Donde la tranquilidad es el verdadero lujo."</h2>
-        <a href="#" class="cta-btn">Solicitar Acceso a Inversión</a>
+        <h2 style="font-size: 3.5rem; margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;" data-key="footer_slogan">"Donde la tranquilidad es el verdadero lujo."</h2>
+        <a href="#" class="cta-btn" data-key="cta_footer">Solicitar Acceso a Inversión</a>
         <div style="margin-top: 6rem; font-size: 0.9rem; color: #555;">
             <p style="margin-top: 20px;">&copy; 2025 Nirvana Resort. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- BOTON WHATSAPP PREMIUM -->
-    <a href="https://wa.link/i0t455" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- BOTONES FLOTANTES: WhatsApp & LinkedIn -->
+    <div class="floating-buttons">
+        <a href="https://wa.link/i0t455" class="float-btn" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.linkedin.com/company/nirvana-resort-tokenized/" class="float-btn" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+    </div>
+
+    <!-- SCRIPT DE IDIOMAS (SIMULADO) -->
+    <script>
+        const translations = {
+            'es': {
+                'eyebrow_hero': 'Oportunidad de Inversión',
+                'hero_tagline': '"Tokenizando el Paraíso Andino"',
+                'market_analysis': 'Análisis de Mercado',
+                'gap_title_1': 'La Brecha del',
+                'gap_title_2': 'Ultra-Lujo',
+                'problem_desc_1': 'Colombia es un destino mundial en tendencia, pero su infraestructura actual no satisface al viajero de alto patrimonio ("High Net Worth").',
+                'problem_desc_2': '<strong>El Desafío:</strong> Las barreras burocráticas y los altos montos de entrada han hecho que este mercado sea inaccesible para el inversor global.',
+                'stat_desc': 'De la demanda actual proviene de Turismo Extranjero.',
+                'solution_eyebrow': 'La Solución',
+                'solution_title_1': 'Santuario',
+                'solution_title_2': 'Tokenizado',
+                'solution_desc_1': 'Una fusión maestra de arquitectura sostenible y tecnología financiera. <strong>20 Bungalows Privados</strong> suspendidos en la montaña, diseñados con una estética biofílica que respeta el entorno.',
+                'solution_desc_2': 'Impulsado por <strong>Blockchain Core</strong> para garantizar propiedad fraccionada real, liquidez inmediata y gobernanza descentralizada a través de Smart Contracts.',
+                'metrics_title': 'Proyecciones Financieras',
+                'metric_adr': 'ADR Promedio',
+                'metric_occ': 'Ocupación Año 1',
+                'metric_rev': 'Revenue Total',
+                'metric_ebitda': 'Margen EBITDA',
+                'investment_eyebrow': 'Estructura de Capital',
+                'cap_public': 'Venta Pública',
+                'cap_founders': 'Fundadores',
+                'cap_reserve': 'Reserva',
+                'cap_growth': 'Growth',
+                'token_eyebrow': 'El Activo Digital',
+                'token_title_1': 'Detalles del',
+                'token_title_2': 'Token',
+                'token_name_label': 'Nombre',
+                'token_net_label': 'Red',
+                'token_type_label': 'Tipo',
+                'token_price_label': 'Precio Inicial',
+                'team_eyebrow': 'Liderazgo',
+                'team_title_1': 'Arquitectos de',
+                'footer_slogan': '"Donde la tranquilidad es el verdadero lujo."',
+                'cta_footer': 'Solicitar Acceso a Inversión'
+            },
+            'en': {
+                'eyebrow_hero': 'Investment Opportunity',
+                'hero_tagline': '"Tokenizing the Andean Paradise"',
+                'market_analysis': 'Market Analysis',
+                'gap_title_1': 'The Gap in',
+                'gap_title_2': 'Ultra-Luxury',
+                'problem_desc_1': 'Colombia is a trending global destination, yet its current infrastructure fails to satisfy the High Net Worth traveler.',
+                'problem_desc_2': '<strong>The Challenge:</strong> Bureaucratic barriers and high entry amounts have made this market inaccessible to the global investor.',
+                'stat_desc': 'Of current demand comes from Foreign Tourism.',
+                'solution_eyebrow': 'The Solution',
+                'solution_title_1': 'Tokenized',
+                'solution_title_2': 'Sanctuary',
+                'solution_desc_1': 'A master fusion of sustainable architecture and financial technology. <strong>20 Private Bungalows</strong> suspended in the mountains, designed with a biophilic aesthetic that respects the environment.',
+                'solution_desc_2': 'Powered by <strong>Blockchain Core</strong> to ensure real fractional ownership, immediate liquidity, and decentralized governance via Smart Contracts.',
+                'metrics_title': 'Financial Projections',
+                'metric_adr': 'Average ADR',
+                'metric_occ': 'Occupancy Year 1',
+                'metric_rev': 'Total Revenue',
+                'metric_ebitda': 'EBITDA Margin',
+                'investment_eyebrow': 'Capital Structure',
+                'cap_public': 'Public Sale',
+                'cap_founders': 'Founders',
+                'cap_reserve': 'Reserve',
+                'cap_growth': 'Growth',
+                'token_eyebrow': 'The Digital Asset',
+                'token_title_1': 'Token',
+                'token_title_2': 'Details',
+                'token_name_label': 'Name',
+                'token_net_label': 'Network',
+                'token_type_label': 'Type',
+                'token_price_label': 'Initial Price',
+                'team_eyebrow': 'Leadership',
+                'team_title_1': 'Architects of',
+                'footer_slogan': '"Where tranquility is the true luxury."',
+                'cta_footer': 'Request Investment Access'
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    if (translations[lang][key].includes('<')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
